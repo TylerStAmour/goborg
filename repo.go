@@ -12,7 +12,7 @@ const (
 )
 
 func (b *BorgEnv) InitRepo(path string, encryption string, opts ...string) error {
-	args := append([]string{path, encryption}, opts...)
+	args := append([]string{path, "--encryption=" + encryption}, opts...)
 	output, err := b.Exec("init", args...)
 	if err != nil {
 		return err

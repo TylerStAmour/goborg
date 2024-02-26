@@ -11,9 +11,16 @@ func (b *BorgEnv) Exec(command string, args ...string) (map[string]any, error) {
 	combinedArgs := append([]string{command, "--log-json"}, args...)
 
 	cmd := exec.Command("borg", combinedArgs...)
-	out, err := cmd.CombinedOutput()
+	cmd.Env = b.vars
+
+	out, err := cmd.Output()
 	if err != nil {
 		return nil, err
+	}
+
+	// empty output, unmarshalling will produce an error
+	if len(out) == 0 {
+		return nil, nil
 	}
 
 	var jsonOut map[string]any
