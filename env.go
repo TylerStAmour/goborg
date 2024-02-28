@@ -1,12 +1,14 @@
 package goborg
 
 type BorgEnv struct {
-	vars []string
+	repoPath string
+	vars     []string
 }
 
-func NewBorgEnvironment(variables ...string) BorgEnv {
+func NewBorgEnvironment(repoPath string, variables ...string) BorgEnv {
 	return BorgEnv{
-		vars: variables,
+		repoPath: repoPath,
+		vars:     variables,
 	}
 }
 
